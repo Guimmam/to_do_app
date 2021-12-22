@@ -42,6 +42,9 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                   Expanded(
                     child: TextField(
+                      onSubmitted: (value) {
+                        print(value);
+                      },
                       decoration: InputDecoration(
                         hintText: 'Enter Task title',
                         border: InputBorder.none,
