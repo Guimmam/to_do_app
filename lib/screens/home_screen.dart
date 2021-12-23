@@ -43,14 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView(
                   children: [
-                    TaskCard(
-                      title: 'Elo',
-                      description: 'Siemka modeczko',
-                    ),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard()
+                    
                   ],
                 ),
               )

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/models/database_helper.dart';
+import 'package:to_do_app/models/task.dart';
 import 'package:to_do_app/widgets/to_do.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -42,8 +44,14 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                   Expanded(
                     child: TextField(
-                      onSubmitted: (value) {
+                      onSubmitted: (value) async {
                         print(value);
+                        if (!value.isEmpty) {
+                          DatabaseHelper _dbHelper = DatabaseHelper();
+
+                          Task _newTask = Task(title: value);
+                         await _dbHelper.insertTask(_newTask);
+                        }
                       },
                       decoration: InputDecoration(
                         hintText: 'Enter Task title',
