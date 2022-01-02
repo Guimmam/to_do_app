@@ -5,7 +5,10 @@ class Task {
   final String title;
   final String description;
 
-  Task({this.id = 0, required this.title, this.description=""});
+  Task(
+      {this.id = 0,
+      required this.title,
+      this.description = "No Description Added"});
 
   Map<String, dynamic> toMap() {
     return {

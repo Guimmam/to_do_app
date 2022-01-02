@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/database_helper.dart';
 import 'package:to_do_app/models/task.dart';
+import 'package:to_do_app/models/todo.dart';
 import 'package:to_do_app/widgets/to_do.dart';
 
 class TaskScreen extends StatefulWidget {
-  const TaskScreen({Key? key}) : super(key: key);
+  final Task task;
+  const TaskScreen({Key? key, required this.task}) : super(key: key);
 
   @override
   _TaskScreenState createState() => _TaskScreenState();
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  String _taskTitle = "";
+
+  @override
+  void initState() {
+    if (widget.task.title != '') {
+      _taskTitle = widget.task.title;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +62,10 @@ class _TaskScreenState extends State<TaskScreen> {
                           DatabaseHelper _dbHelper = DatabaseHelper();
 
                           Task _newTask = Task(title: value);
-                         await _dbHelper.insertTask(_newTask);
+                          await _dbHelper.insertTask(_newTask);
                         }
                       },
+                      controller: TextEditingController()..text = _taskTitle,
                       decoration: InputDecoration(
                         hintText: 'Enter Task title',
                         border: InputBorder.none,
@@ -74,19 +87,39 @@ class _TaskScreenState extends State<TaskScreen> {
                       border: InputBorder.none),
                 ),
               ),
-              ToDo(
-                isDone: true,
-                text: 'To do widget',
-              ),
-              ToDo(
-                isDone: true,
-                text: 'Create second task',
-              ),
-              ToDo(
-                isDone: false,
-                text: 'Just another todo',
-              ),
-              ToDo(),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: false,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        onChanged: (_) {},
+                      ),
+                      Expanded(
+                          child: TextField(
+                        onSubmitted: (value) async {
+                          print(value);
+                          if (!value.isEmpty) {
+                            DatabaseHelper _dbHelper = DatabaseHelper();
+
+                            Todo _newTodo = Todo(
+                                title: value,
+                                taskId: widget.task.id,
+                                isDone: 0);
+                            await _dbHelper.insertTodo(_newTodo);
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Enter ToDo item...",
+                          border: InputBorder.none,
+                        ),
+                      )),
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
         ),

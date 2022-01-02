@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/models/database_helper.dart';
+import 'package:to_do_app/models/task.dart';
 import 'package:to_do_app/screens/task_screen.dart';
 import 'package:to_do_app/widgets/task_card.dart';
+import 'task_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,11 +15,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    DatabaseHelper _dbHelper = DatabaseHelper();
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Task task = Task(title: '');
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TaskScreen()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TaskScreen(
+                        task: task,
+                      ))).then((value) {
+            setState(() {});
+          });
         },
         child: Icon(
           Icons.add,
@@ -41,12 +53,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Expanded(
-                child: ListView(
-                  children: [
-                    
-                  ],
-                ),
-              )
+                  child: FutureBuilder(
+                      future: _dbHelper.getTasks(),
+                      builder: (context, AsyncSnapshot<List<Task>> snapshot) =>
+                          ListView.builder(
+                            itemCount:
+                                snapshot.hasData ? snapshot.data!.length : 0,
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TaskScreen(
+                                              task: snapshot.data![index],
+                                            )));
+                              },
+                              child: TaskCard(
+                                title: snapshot.data![index].title,
+                                description: snapshot.data![index].description,
+                              ),
+                            ),
+                          )))
             ],
           ),
         ),
