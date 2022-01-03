@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ToDo extends StatefulWidget {
+class TodoWidget extends StatefulWidget {
   final String text;
   bool isDone;
 
-  ToDo({
+  TodoWidget({
     Key? key,
     this.text = '(Unnamed todo)',
     this.isDone = false,
   }) : super(key: key);
 
   @override
-  State<ToDo> createState() => _ToDoState();
+  State<TodoWidget> createState() => _TodoWidgetState();
 }
 
-class _ToDoState extends State<ToDo> {
+class _TodoWidgetState extends State<TodoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +33,7 @@ class _ToDoState extends State<ToDo> {
               },
             ),
             Text(
-              'To do widget ',
+              widget.text,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],

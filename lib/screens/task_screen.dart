@@ -14,11 +14,14 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
   String _taskTitle = "";
+  int _taskId = 0;
+  DatabaseHelper _dbHelper = DatabaseHelper();
 
   @override
   void initState() {
     if (widget.task.title != '') {
       _taskTitle = widget.task.title;
+      _taskId = widget.task.id;
     }
     super.initState();
   }
@@ -59,8 +62,6 @@ class _TaskScreenState extends State<TaskScreen> {
                       onSubmitted: (value) async {
                         print(value);
                         if (!value.isEmpty) {
-                          DatabaseHelper _dbHelper = DatabaseHelper();
-
                           Task _newTask = Task(title: value);
                           await _dbHelper.insertTask(_newTask);
                         }
@@ -87,37 +88,46 @@ class _TaskScreenState extends State<TaskScreen> {
                       border: InputBorder.none),
                 ),
               ),
-              Column(
+              Expanded(
+                child: FutureBuilder(
+                    future: _dbHelper.getTodos(_taskId),
+                    builder: (context, AsyncSnapshot<List<Todo>> snapshot) =>
+                        ListView.builder(
+                            itemCount:
+                                snapshot.hasData ? snapshot.data!.length : 0,
+                            itemBuilder: (context, index) => TodoWidget(
+                                  isDone: snapshot.data![index].isDone == 0
+                                      ? false
+                                      : true,
+                                  text: snapshot.data![index].title,
+                                ))),
+              ),
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: false,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        onChanged: (_) {},
-                      ),
-                      Expanded(
-                          child: TextField(
-                        onSubmitted: (value) async {
-                          print(value);
-                          if (!value.isEmpty) {
-                            DatabaseHelper _dbHelper = DatabaseHelper();
-
-                            Todo _newTodo = Todo(
-                                title: value,
-                                taskId: widget.task.id,
-                                isDone: 0);
-                            await _dbHelper.insertTodo(_newTodo);
-                          }
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Enter ToDo item...",
-                          border: InputBorder.none,
-                        ),
-                      )),
-                    ],
+                  Checkbox(
+                    value: false,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    onChanged: (_) {},
                   ),
+                  Expanded(
+                      child: TextField(
+                    onSubmitted: (value) async {
+                      print(value);
+                      if (value.isNotEmpty) {
+                        DatabaseHelper _dbHelper = DatabaseHelper();
+
+                        Todo _newTodo = Todo(
+                            title: value, taskId: widget.task.id, isDone: 0);
+                        await _dbHelper.insertTodo(_newTodo);
+                        setState(() {});
+                      }
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter ToDo item...",
+                      border: InputBorder.none,
+                    ),
+                  )),
                 ],
               )
             ],
