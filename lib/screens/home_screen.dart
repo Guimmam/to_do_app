@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/database_helper.dart';
 import 'package:to_do_app/models/task.dart';
@@ -55,10 +57,22 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                   child: FutureBuilder(
                       future: _dbHelper.getTasks(),
-                      builder: (context, AsyncSnapshot<List<Task>> snapshot) =>
-                          ListView.builder(
-                            itemCount:
-                                snapshot.hasData ? snapshot.data!.length : 0,
+                      builder: (context, AsyncSnapshot<List<Task>> snapshot) {
+                        int todosQuantity =
+                            snapshot.hasData ? snapshot.data!.length : 0;
+
+                        if (todosQuantity == 0) {
+                          return Center(
+                              child: Text(
+                            'Looks like there are no todos :(',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ));
+                        } else
+                          return ListView.builder(
+                            itemCount: todosQuantity,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -66,14 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     MaterialPageRoute(
                                         builder: (context) => TaskScreen(
                                               task: snapshot.data![index],
-                                            )));
+                                            ))).then((value) {
+                                  setState(() {});
+                                });
                               },
                               child: TaskCard(
                                 title: snapshot.data![index].title,
                                 description: snapshot.data![index].description,
                               ),
                             ),
-                          )))
+                          );
+                      }))
             ],
           ),
         ),

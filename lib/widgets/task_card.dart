@@ -33,7 +33,7 @@ class TaskCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
-              description,
+              description == "" ? 'No Description Added' : description,
               style: TextStyle(
                 fontSize: 16,
                 color: Color(0xFF86829D),

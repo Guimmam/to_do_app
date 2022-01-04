@@ -18,7 +18,7 @@ class _TodoWidgetState extends State<TodoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         child: Row(
           children: [
@@ -26,15 +26,19 @@ class _TodoWidgetState extends State<TodoWidget> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
               value: widget.isDone,
-              onChanged: (value) {
-                setState(() {
-                  widget.isDone = value!;
-                });
-              },
+              onChanged: (value) {},
             ),
-            Text(
-              widget.text,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Flexible(
+              child: Text(
+                widget.text,
+                style: TextStyle(
+                    fontSize: 16,
+                    decoration: widget.isDone
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                    fontWeight:
+                        !widget.isDone ? FontWeight.bold : FontWeight.normal),
+              ),
             ),
           ],
         ),
