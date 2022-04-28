@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TodoWidget extends StatefulWidget {
   final String text;
   bool isDone;
@@ -19,29 +20,27 @@ class _TodoWidgetState extends State<TodoWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Container(
-        child: Row(
-          children: [
-            Checkbox(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              value: widget.isDone,
-              onChanged: (value) {},
+      child: Row(
+        children: [
+          Checkbox(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5)),
+            value: widget.isDone,
+            onChanged: (value) {},
+          ),
+          Flexible(
+            child: Text(
+              widget.text,
+              style: TextStyle(
+                  fontSize: 16,
+                  decoration: widget.isDone
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                  fontWeight:
+                      !widget.isDone ? FontWeight.bold : FontWeight.normal),
             ),
-            Flexible(
-              child: Text(
-                widget.text,
-                style: TextStyle(
-                    fontSize: 16,
-                    decoration: widget.isDone
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
-                    fontWeight:
-                        !widget.isDone ? FontWeight.bold : FontWeight.normal),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

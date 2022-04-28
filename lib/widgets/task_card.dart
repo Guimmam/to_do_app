@@ -13,9 +13,9 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -25,7 +25,7 @@ class TaskCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Color(0xFF211551),
                 fontSize: 22,
                 fontWeight: FontWeight.bold),
@@ -34,7 +34,7 @@ class TaskCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               description == "" ? 'No Description Added' : description,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Color(0xFF86829D),
               ),

@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/database_helper.dart';
@@ -32,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
             setState(() {});
           });
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           size: 30,
         ),
@@ -41,16 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 24,
           ),
-          color: Color(0xFFF6F6F6),
+          color: const Color(0xFFF6F6F6),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 32, top: 32),
-                child: Image(
+                margin: const EdgeInsets.only(bottom: 32, top: 32),
+                child: const Image(
                   image: AssetImage('assets/images/logo.png'),
                 ),
               ),
@@ -62,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             snapshot.hasData ? snapshot.data!.length : 0;
 
                         if (todosQuantity == 0) {
-                          return Center(
+                          return const Center(
                               child: Text(
                             'Looks like there are no todos :(',
                             textAlign: TextAlign.center,
@@ -70,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 20,
                             ),
                           ));
-                        } else
+                        } else {
                           return ListView.builder(
                             itemCount: todosQuantity,
                             itemBuilder: (context, index) => InkWell(
@@ -90,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
+                        }
                       }))
             ],
           ),

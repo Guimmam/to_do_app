@@ -11,6 +11,7 @@ class DatabaseHelper {
           "CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, description TEXT)");
       await db.execute(
           "CREATE TABLE todos(id INTEGER PRIMARY KEY,taskId INTEGER, title TEXT, isDone INTEGER)");
+      // ignore: void_checks
       return Future.value(db);
     }, version: 1);
   }
@@ -49,7 +50,7 @@ class DatabaseHelper {
 
   Future<void> insertTodo(Todo todo) async {
     Database _db = await database();
-    print(todo.toMap());
+   
     var todoToInsert = {
       'taskId': todo.taskId,
       'title': todo.title,

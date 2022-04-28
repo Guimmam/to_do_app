@@ -99,7 +99,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         }
                       } else {
                         await _dbHelper.updateTaskTitle(_taskId, value);
-                        print("Task Updated");
+                        
                       }
                       _descriptionFocus.requestFocus();
                     },

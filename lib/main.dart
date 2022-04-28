@@ -15,9 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            accentColor: Color(0xFF725eff),
             textTheme:
-                GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme)),
-        home: HomeScreen());
+                GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFF725eff))),
+        home: const HomeScreen());
   }
 }
