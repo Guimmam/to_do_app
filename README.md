@@ -1,16 +1,12 @@
-# to_do_app
+# Cards App
 
-A new Flutter project.
+App made with Flutter to store to-dos. I used sqflite package to store them.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Used technologies
+Flutter, Dart, sqflite
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+<img src="https://user-images.githubusercontent.com/77902674/165900005-5f6fb7b3-bf40-4344-83a1-ff183264aa64.png" align="left" width="315">
+<img src="https://user-images.githubusercontent.com/77902674/165900002-afe65e24-7351-4b6c-8d5f-772936f8b82f.png" align="left" width="315">
+<img src="https://user-images.githubusercontent.com/77902674/165900007-04749b1b-f826-413d-bb73-ec13af980667.png" align="left" width="315">
