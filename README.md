@@ -1,4 +1,4 @@
-# Cards App
+# To do App
 
 App made with Flutter to store to-dos. I used sqflite package to store them.
 
